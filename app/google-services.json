@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "404299645113",
+    "project_id": "test-android-realtimedatabase",
+    "storage_bucket": "test-android-realtimedatabase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404299645113:android:c62541e102b02c28491b68",
+        "android_client_info": {
+          "package_name": "io.github.harutiro.test_realtimedatabase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "404299645113-kvibqnjbbnfojjuv5ms4uav4f5i6lrtr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.github.harutiro.test_realtimedatabase",
+            "certificate_hash": "a37ea9fe3324888a6aea2c5d649e9758d4a9077f"
+          }
+        },
+        {
+          "client_id": "404299645113-3moq7n4pfe7b0odcercsqol2fp4bb9s5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrXCrspM_mz-Z4LrZPmxW1EDnJalnQ3HQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "404299645113-3moq7n4pfe7b0odcercsqol2fp4bb9s5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
