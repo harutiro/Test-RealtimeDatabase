@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="in"
-        app:layout_constraintBottom_toTopOf="@+id/outText"
+        app:layout_constraintBottom_toTopOf="@+id/outIdText"
         app:layout_constraintEnd_toEndOf="@+id/inText"
         app:layout_constraintStart_toStartOf="@+id/inText"
         app:layout_constraintTop_toBottomOf="@+id/inText"
@@ -36,14 +36,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/inText"
         app:layout_constraintStart_toStartOf="@+id/inText"
-        app:layout_constraintTop_toBottomOf="@+id/outText" />
+        app:layout_constraintTop_toBottomOf="@+id/outIdText" />
 
     <EditText
-        android:id="@+id/outText"
+        android:id="@+id/outIdText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:gravity="start|top"
+        android:hint="ID"
         android:inputType="textMultiLine"
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/outButton"
@@ -51,4 +52,44 @@
         app:layout_constraintStart_toStartOf="@+id/inText"
         app:layout_constraintTop_toBottomOf="@+id/inButton"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <EditText
+        android:id="@+id/outEmailText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="email"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/outUserNameText"
+        app:layout_constraintEnd_toEndOf="@+id/outIdText"
+        app:layout_constraintStart_toStartOf="@+id/outIdText"
+        app:layout_constraintTop_toBottomOf="@+id/outIdText" />
+
+    <EditText
+        android:id="@+id/outUserNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="userName"
+        android:inputType="textMultiLine"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/outButton"
+        app:layout_constraintEnd_toEndOf="@+id/outIdText"
+        app:layout_constraintStart_toStartOf="@+id/outIdText"
+        app:layout_constraintTop_toBottomOf="@+id/outEmailText" />
+
+    <EditText
+        android:id="@+id/inIdText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="ユーザー検察"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/inText"
+        app:layout_constraintEnd_toEndOf="@+id/inText"
+        app:layout_constraintStart_toStartOf="@+id/inText"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

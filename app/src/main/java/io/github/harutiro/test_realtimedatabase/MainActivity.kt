@@ -12,9 +12,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import kotlin.text.isEmpty as isEmpty
+import java.net.IDN
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
 
 //        書き込み
         val database2: DatabaseReference = Firebase.database.reference
+
         data class User(
             val username: String? = null,
             val email: String? = null
@@ -65,9 +66,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.outButton).setOnClickListener {
-            val userName = findViewById<EditText>(R.id.outText).text.toString()
-            if (userName.isNotEmpty()){
-                writeNewUser(userName,"harutiro","hogehoge@exsample.com")
+            val id = findViewById<EditText>(R.id.outIdText).text.toString()
+            val email = findViewById<EditText>(R.id.outEmailText).text.toString()
+            val name = findViewById<EditText>(R.id.outUserNameText).text.toString()
+
+            if (id.isNotEmpty()){
+                writeNewUser(id,email,name)
                 Snackbar.make(findViewById(android.R.id.content),"OK", Snackbar.LENGTH_SHORT).show()
 
             }else{
@@ -79,10 +83,13 @@ class MainActivity : AppCompatActivity() {
 //        読み込み
 
         findViewById<Button>(R.id.inButton).setOnClickListener {
-            database2.child("users").child("test").child("email").get().addOnSuccessListener {
+            val id = findViewById<EditText>(R.id.inIdText).text.toString()
+
+            database2.child("user").child(id).child("email").get().addOnSuccessListener {
                 Log.i(TAG, "Got value ${it.value}")
                 findViewById<TextView>(R.id.inText).text = it.value.toString()
             }.addOnFailureListener{
+                findViewById<TextView>(R.id.inText).text = "一致なし"
                 Log.e(TAG, "Error getting data", it)
             }
             Snackbar.make(findViewById(android.R.id.content),"OK", Snackbar.LENGTH_SHORT).show()
