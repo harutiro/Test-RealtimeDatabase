@@ -15,6 +15,18 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.net.IDN
 import java.util.*
+import org.json.JSONException
+import com.google.gson.Gson
+import com.google.firebase.FirebaseError
+
+
+
+
+
+
+
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,13 +63,7 @@ class MainActivity : AppCompatActivity() {
 //        書き込み
         val database2: DatabaseReference = Firebase.database.reference
 
-        data class User(
-            val username: String? = null,
-            val email: String? = null
-        ) {
-            // Null default values create a no-argument default constructor, which is needed
-            // for deserialization from a DataSnapshot.
-        }
+
 
         fun writeNewUser(userId: String, name: String, email: String) {
             val user = User(name, email)
@@ -94,6 +100,32 @@ class MainActivity : AppCompatActivity() {
             }
             Snackbar.make(findViewById(android.R.id.content),"OK", Snackbar.LENGTH_SHORT).show()
 
+        }
+
+
+//        ============================================================
+
+        val database3 = Firebase.database.getReference("users")
+
+        findViewById<Button>(R.id.testButton).setOnClickListener {
+            database3.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    Log.d(TAG, "===============================================")
+
+
+                    for (dataSnapshot in snapshot.children) {
+
+                        val sender = dataSnapshot.child("email").value as String?
+                        val body = dataSnapshot.child("username").value as String?
+                        Log.d(TAG, String.format("id:%s, email:%s, username:%s",dataSnapshot.key, sender, body))
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
         }
 
 
