@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             val name = findViewById<EditText>(R.id.outUserNameText).text.toString()
 
             if (id.isNotEmpty()){
-                writeNewUser(id,email,name)
+                writeNewUser(id,name,email)
                 Snackbar.make(findViewById(android.R.id.content),"OK", Snackbar.LENGTH_SHORT).show()
 
             }else{
@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
 
 
 //        ============================================================
-
+//      配列のようにデータを読み込む
         val database3 = Firebase.database.getReference("users")
 
         findViewById<Button>(R.id.testButton).setOnClickListener {
