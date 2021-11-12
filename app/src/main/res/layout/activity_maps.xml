@@ -26,7 +26,7 @@
         android:id="@+id/testMapButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="２"
+        android:text="現在地点にピンを立てる"
         app:layout_constraintStart_toEndOf="@+id/testMapButton"
         app:layout_constraintTop_toTopOf="parent" />
 
