@@ -110,13 +110,17 @@ class MainActivity : AppCompatActivity() {
 
                     Log.d(TAG, "===============================================")
 
+                    var output = ""
 
                     for (dataSnapshot in snapshot.children) {
 
                         val sender = dataSnapshot.child("email").value as String?
                         val body = dataSnapshot.child("username").value as String?
                         Log.d(TAG, String.format("id:%s, email:%s, username:%s",dataSnapshot.key, sender, body))
+                        output += String.format("id:%s, email:%s, username:%s \n",dataSnapshot.key, sender, body)
                     }
+
+                    findViewById<TextView>(R.id.inText).text = output
                 }
 
                 override fun onCancelled(error: DatabaseError) {
