@@ -1,12 +1,18 @@
 package io.github.harutiro.test_realtimedatabase
 
 import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -21,12 +27,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
 
-//    private lateinit var fusedLocationClient: FusedLocationProviderClient
-
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+//        デフォルトのやつ
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -35,42 +39,76 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+//        大阪の表示
         findViewById<Button>(R.id.testMapButton).setOnClickListener {
             val osakaStation = LatLng(34.702423,135.495972)
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(osakaStation, 10.0f))
         }
 
+//        現在地のカメラ移動　ピン立て
         findViewById<Button>(R.id.testMapButton2).setOnClickListener {
-//            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+            val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+//            パーミッション確認
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+//                TODO:ほんとはここでパーミッションの表示をするようにする
+            }else{
+//                現在地の表示
+                fusedLocationClient.lastLocation
+                    .addOnSuccessListener { location : Location? ->
+                        // Got last known location. In some rare situations this can be null.
+                        Log.d("debag", "緯度:"+ location?.latitude.toString())
+                        Log.d("debag", "経度:"+ location?.longitude.toString())
+
+//                        カメラ移動
+                        val osakaStation = LatLng(location!!.latitude,location.longitude)
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(osakaStation, 16.0f))
+//                        ピン立て
+                        val tokyo = LatLng(location!!.latitude, location.longitude)
+                        mMap.addMarker(MarkerOptions().position(tokyo).title("現在地点"))
+
+
+                    }
+
+            }
+
         }
 
 
 //        パーミッション確認
+        parmission()
+
+
+    }
+
+    fun parmission(){
         val locationPermissionRequest = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) { permissions ->
-            when {
-                permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
-                    // Precise location access granted.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                when {
+                    permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                        // Precise location access granted.
+                    }
+                    permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                        // Only approximate location access granted.
+                    } else -> {
+                    // No location access granted.
                 }
-                permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
-                    // Only approximate location access granted.
-                } else -> {
-                // No location access granted.
-            }
+                }
             }
         }
 
-// ...
-
-// Before you perform the actual permission request, check whether your app
-// already has the permissions, and whether your app needs to show a permission
-// rationale dialog. For more details, see Request permissions.
         locationPermissionRequest.launch(arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION))
-
-
     }
 
     /**
@@ -85,10 +123,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        // Add a marker in Sydney and move the camera
+        //シドニーの表示
         val sydney = LatLng(-34.0, 151.0)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+
+//        ツールバーの表示
+        mMap.uiSettings.isMapToolbarEnabled = true
+
+//        現在地点の出力
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            //                TODO:ほんとはここでパーミッションの表示をするようにする
+
+        }else{
+            mMap.isMyLocationEnabled = true
+
+        }
 
     }
 }
