@@ -19,15 +19,6 @@ import java.util.*
 import org.json.JSONException
 import com.google.firebase.FirebaseError
 
-
-
-
-
-
-
-
-
-
 class MainActivity : AppCompatActivity() {
 
     val TAG = "debag"
