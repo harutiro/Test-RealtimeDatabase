@@ -2,7 +2,9 @@ package io.github.harutiro.test_realtimedatabase
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.icu.util.TimeUnit.values
 import android.location.Location
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,7 +22,11 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.firestore.model.FieldIndex
+import com.google.maps.android.clustering.ClusterItem
+import com.google.maps.android.clustering.ClusterManager
 import io.github.harutiro.test_realtimedatabase.databinding.ActivityMapsBinding
+import java.time.chrono.JapaneseEra.values
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -80,6 +86,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
 
         }
+
 
 
 //        パーミッション確認
@@ -146,6 +153,34 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             mMap.isMyLocationEnabled = true
 
         }
+
+
+//        data class Place(
+//            val name: String,
+//            val address: String,
+//            val picture: Uri,
+//            val location: LatLng,
+//        ) : ClusterItem {
+//
+//            override fun getTitle() = name
+//            override fun getPosition() = location
+//            override fun getSnippet() = null
+//        }
+//
+////        クラスタマネージャー
+//        val placeListClusterManager = ClusterManager<Place>(this, googleMap)
+//        googleMap.setOnCameraIdleListener(placeListClusterManager)
+//        googleMap.setOnMarkerClickListener(placeListClusterManager)
+//        googleMap.setOnInfoWindowClickListener(placeListClusterManager)
+//
+//        // 前提として、placeRepository.listPlaces() でAPIからPlaceのリストが取得できるものとする。
+//        placeRepository.listPlaces().observe { placeList ->
+//            placeListClusterManager.apply {
+//                clearItems()
+//                addItems(placeList)
+//                cluster()
+//            }
+//        }
 
     }
 }
