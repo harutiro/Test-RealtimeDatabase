@@ -32,6 +32,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        findViewById<Button>(R.id.FireStoreButton).setOnClickListener {
+            val intent = Intent(this, CloudFireStoreActivity::class.java)
+            startActivity(intent)
+        }
+
 
 //      書き込み
         val database = Firebase.database
