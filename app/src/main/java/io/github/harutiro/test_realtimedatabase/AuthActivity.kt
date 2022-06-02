@@ -78,7 +78,13 @@ class AuthActivity : AppCompatActivity() {
                 Log.d(TAG,user.email.toString())
             } else {
                 // No user is signed in
+                Log.d(TAG,"NoAccount")
+
             }
+        }
+
+        findViewById<Button>(R.id.authLogoutButton).setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
         }
 
 
