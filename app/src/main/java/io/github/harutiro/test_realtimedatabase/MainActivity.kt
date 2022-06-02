@@ -135,5 +135,11 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        findViewById<Button>(R.id.authButton).setOnClickListener {
+            val intent = Intent(this, AuthActivity::class.java)
+            startActivity(intent)
+        }
+
+
     }
 }
