@@ -5,8 +5,10 @@ import android.content.IntentSender
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
@@ -34,6 +36,10 @@ class AuthActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         oneTapClient = Identity.getSignInClient(this)
+
+        Log.d(TAG, auth.currentUser?.photoUrl.toString())
+
+        Glide.with(this).load(auth.currentUser?.photoUrl).into(findViewById(R.id.iconImage))
 
         val signInRequest = BeginSignInRequest.builder()
             .setGoogleIdTokenRequestOptions(
@@ -128,6 +134,7 @@ class AuthActivity : AppCompatActivity() {
                     Log.d("Auth3", e.localizedMessage)
                 }
         }
+
 
 
 
