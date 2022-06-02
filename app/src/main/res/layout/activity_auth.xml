@@ -37,4 +37,20 @@
         android:text="logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+
+    <Button
+        android:id="@+id/googleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="google"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/authLogoutButton" />
+
+    <Button
+        android:id="@+id/checkGoogleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="checkGoogle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/authCheckButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,6 +18,7 @@ import java.net.IDN
 import java.util.*
 import org.json.JSONException
 import com.google.firebase.FirebaseError
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
@@ -139,6 +140,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, AuthActivity::class.java)
             startActivity(intent)
         }
+
+
+
+        Log.d("Auth", FirebaseAuth.getInstance().currentUser?.email.toString())
 
 
     }
