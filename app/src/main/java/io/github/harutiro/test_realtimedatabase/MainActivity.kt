@@ -140,6 +140,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        findViewById<Button>(R.id.firestoreButton).setOnClickListener {
+            val intent = Intent(this, FIrestoreActivity::class.java)
+            startActivity(intent)
+        }
+
 
     }
 }
