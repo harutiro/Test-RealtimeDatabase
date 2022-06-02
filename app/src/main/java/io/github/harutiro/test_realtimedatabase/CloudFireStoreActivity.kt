@@ -3,6 +3,7 @@ package io.github.harutiro.test_realtimedatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -44,6 +45,32 @@ class CloudFireStoreActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
             }
+
+
+        findViewById<Button>(R.id.serachButton).setOnClickListener {
+            db.collection("users")
+                .whereEqualTo("first","hello")
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        Log.d(TAG, "${document.id} => ${document.data}")
+                        Log.d(TAG, "${document.id} => ${document.data.size}")
+
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(TAG, "Error getting documents.", exception)
+                }
+
+
+            val query = db.collection("users")
+                .whereEqualTo("first","hello")
+
+            Log.d(TAG,query.toString())
+
+
+
+        }
 
 
     }
